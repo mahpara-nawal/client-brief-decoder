@@ -10,9 +10,8 @@ import { EMPTY_SCOPE, SECTIONS, scopeToMarkdown, type Scope } from "@/lib/scope"
 import { generateScope } from "@/lib/scope.functions";
 
 export const Route = createFileRoute("/scope")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    id: typeof search["id"] === "string" ? search["id"] : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { id?: string } =>
+    typeof search["id"] === "string" ? { id: search["id"] } : {},
   head: () => ({
     meta: [
       { title: "Project scope — ScopePilot" },
