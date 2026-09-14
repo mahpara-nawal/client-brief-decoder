@@ -54,7 +54,7 @@ export async function saveProject(input: {
   const payload = {
     title: input.title,
     raw_brief: input.raw_brief,
-    scope_json: input.scope as unknown as Record<string, unknown>,
+    scope_json: JSON.parse(JSON.stringify(input.scope)) as never,
   };
 
   if (input.id) {
