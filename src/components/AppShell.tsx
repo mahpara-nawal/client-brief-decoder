@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -8,6 +9,22 @@ const navItems = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(Boolean(data.session)));
+    const { data } = supabase.auth.onAuthStateChange((_event, session) =>
+      setSignedIn(Boolean(session)),
+    );
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    navigate({ to: "/" });
+  }
+
   return (
     <div className="min-h-screen bg-background font-body text-[15px] text-foreground">
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
@@ -38,6 +55,25 @@ export function AppShell({ children }: { children: ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            {signedIn ? (
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-full px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Sign out
+              </button>
+            ) : (
+              <Link
+                to="/auth"
+                className="rounded-full px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{
+                  className: "bg-foreground text-primary-foreground hover:text-primary-foreground",
+                }}
+              >
+                Sign in
+              </Link>
+            )}
           </nav>
         </div>
       </header>
