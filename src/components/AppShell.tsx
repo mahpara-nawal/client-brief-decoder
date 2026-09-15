@@ -55,6 +55,25 @@ export function AppShell({ children }: { children: ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            {signedIn ? (
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-full px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Sign out
+              </button>
+            ) : (
+              <Link
+                to="/auth"
+                className="rounded-full px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
+                activeProps={{
+                  className: "bg-foreground text-primary-foreground hover:text-primary-foreground",
+                }}
+              >
+                Sign in
+              </Link>
+            )}
           </nav>
         </div>
       </header>
