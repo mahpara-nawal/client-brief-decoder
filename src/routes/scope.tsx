@@ -1,10 +1,10 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { ScopeSkeleton } from "@/components/ScopeSkeleton";
-import { clearDraft, getDraft, setDraft } from "@/lib/draft";
+import { getDraft, setDraft } from "@/lib/draft";
 import { getProject, saveProject } from "@/lib/projects";
 import { EMPTY_SCOPE, SECTIONS, scopeToMarkdown, type Scope } from "@/lib/scope";
 import { generateScope } from "@/lib/scope.functions";
