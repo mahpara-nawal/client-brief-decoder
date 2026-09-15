@@ -281,16 +281,6 @@ function ScopePage() {
           >
             {busy === "regenerate" ? "…" : "↻"}
           </button>
-          <button
-            type="button"
-            onClick={() => {
-              clearDraft();
-              navigate({ to: "/" });
-            }}
-            className="sr-only"
-          >
-            New scope
-          </button>
         </div>
       </div>
     </>
