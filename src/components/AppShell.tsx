@@ -9,6 +9,22 @@ const navItems = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(Boolean(data.session)));
+    const { data } = supabase.auth.onAuthStateChange((_event, session) =>
+      setSignedIn(Boolean(session)),
+    );
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    navigate({ to: "/" });
+  }
+
   return (
     <div className="min-h-screen bg-background font-body text-[15px] text-foreground">
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
