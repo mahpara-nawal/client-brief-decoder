@@ -51,10 +51,14 @@ export async function saveProject(input: {
   raw_brief: string;
   scope: Scope;
 }): Promise<SavedProject> {
+  const { data: auth } = await supabase.auth.getUser();
+  if (!auth.user) throw new Error("Please sign in to save scopes.");
+
   const payload = {
     title: input.title,
     raw_brief: input.raw_brief,
     scope_json: JSON.parse(JSON.stringify(input.scope)) as never,
+    user_id: auth.user.id,
   };
 
   if (input.id) {
