@@ -31,7 +31,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 to={item.to}
                 activeOptions={{ exact: item.to === "/" }}
                 className="rounded-full px-3 py-2 text-muted-foreground transition-colors hover:text-foreground"
-                activeProps={{ className: "bg-foreground text-background hover:text-background" }}
+                activeProps={{
+                  className: "bg-foreground text-primary-foreground hover:text-primary-foreground",
+                }}
               >
                 {item.label}
               </Link>
