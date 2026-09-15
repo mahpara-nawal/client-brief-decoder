@@ -193,7 +193,7 @@ function ScopePage() {
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
                 aria-label="Scope title"
-                className="mt-1 w-full bg-transparent font-display text-[26px] leading-tight font-semibold tracking-tight outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="mt-1 w-full overflow-hidden bg-transparent pr-2 font-display text-[26px] leading-tight font-semibold tracking-tight text-ellipsis outline-none focus-visible:ring-2 focus-visible:ring-ring"
               />
             </div>
             <span className="shrink-0 rounded-full bg-accent/12 px-2.5 py-1 text-[11px] font-medium text-accent ring-1 ring-accent/25">
