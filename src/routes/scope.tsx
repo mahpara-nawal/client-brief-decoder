@@ -32,7 +32,6 @@ export const Route = createFileRoute("/scope")({
 
 function ScopePage() {
   const { id } = Route.useSearch();
-  const navigate = useNavigate();
   const regenerate = useServerFn(generateScope);
 
   const [loading, setLoading] = useState(true);
